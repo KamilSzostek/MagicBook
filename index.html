@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harry Potter App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+    <script src="https://kit.fontawesome.com/428b331783.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav class="nav-mobile">
+            <i class="fa-solid fa-bars"></i>
+            <div class="nav-controls">
+                <i class="fa-solid fa-xmark"></i>
+                <button category="all" class="category-btn">All students</button>
+                <button category="gryffindor" class="category-btn">Gryffindor</button>
+                <button category="slytherin" class="category-btn">Slytherin</button>
+                <button category="hufflepuff" class="category-btn">Hufflepuff</button>
+                <button category="ravenclaw" class="category-btn">Ravenclaw</button>
+                <button category="favorites" class="category-btn fav">Favorites</button>
+            </div>
+        </nav>
+        <nav class="nav-desktop">
+            <button category="all" class="category-btn">
+                <img src="./images/allstudents.png" alt="">
+            </button>
+            <button category="gryffindor" class="category-btn">
+                <img src="./images/gryffindor.png" alt="">
+            </button>
+            <button category="slytherin" class="category-btn">
+                <img src="./images/slytherin.png" alt="">
+            </button>
+            <button category="hufflepuff" class="category-btn">
+                <img src="./images/huffelpuff.png" alt="">
+            </button>
+            <button category="ravenclaw" class="category-btn">
+                <img src="./images/ravenclaw.png" alt="">
+            </button>
+            <button category="favorites" class="category-btn fav">
+                <img src="./images/fav.png" alt="">
+            </button>
+        </nav>
+    </header>
+    <main>
+        <section id="all" class="d-block">
+        </section>
+        <section id="gryffindor">
+        </section>
+        <section id="slytherin">
+        </section>
+        <section id="hufflepuff">
+        </section>
+        <section id="ravenclaw">
+        </section>
+        <section id="favorites">
+        </section>
+
+    </main>
+    <div class='custom-shape-divider-top'>
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M602.45,3.86h0S572.9,116.24,281.94,120H923C632,116.24,602.45,3.86,602.45,3.86Z" class="shape-fill">
+            </path>
+        </svg>
+    </div>
+    <footer>
+        <div class='custom-shape-divider-bottom'>
+            <svg viewBox="0 0 1200 120" preserveAspectRatio='none'>
+                <path d="M1200,0H0V120H281.94C572.9,116.24,602.45,3.86,602.45,3.86h0S632,116.24,923,120h277Z"
+                    class="shape-fill"></path>
+            </svg>
+        </div>
+    </footer>
+
+    <div class="bg-cover"></div>
+    <div class="modal">
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
