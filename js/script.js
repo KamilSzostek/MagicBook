@@ -107,7 +107,7 @@ const createTables = () => {
 
 const fillTable = (data, section) => {
     section.querySelector('.loading').style.display = 'none'
-    
+
     const tableBody = section.querySelector('tbody')
     tableBody.innerHTML = ''
     for (const obj of data) {
@@ -198,44 +198,123 @@ const fillFavorites = () => {
     }
 }
 
-const createList = (section, data) => {
-    let personId = 0
+let pageNumber = 1
+
+const createPagesBtns = (mobileDiv, pageNumber, pageBtns) => {
+    mobileDiv.innerHTML += `<div class="pages"></div>`
+    const pages = mobileDiv.querySelector('.pages')
+    pages.innerHTML = ''
+
+    if (pageNumber === 1) {
+        maxIntOfPageBtns = pageNumber + 2
+        for (let i = pageNumber; i <= maxIntOfPageBtns; i++) {
+            if (i > pageBtns)
+                return
+            pages.innerHTML += `<button id='page${i}'>${i}</button>`
+        }
+    }
+    else {
+        maxIntOfPageBtns = pageNumber + 1
+        for (let i = pageNumber - 1; i <= maxIntOfPageBtns; i++) {
+            if (i > pageBtns)
+                return
+            pages.innerHTML += `<button id='page${i}'>${i}</button>`
+        }
+    }
+}
+
+const createList = (section, data, startCounter = 0) => {
+    const maxIntCardsOnPage = 10
+    let maxIntOfPageBtns
+    pageBtns = data.length / maxIntCardsOnPage
+    data.length % maxIntCardsOnPage > 0 ? pageBtns += 1 : pageBtns
     const mobileDiv = section.querySelector('.mobile')
-    mobileDiv.innerHTML = ``
-    for (const obj of data) {
-        mobileDiv.innerHTML += (
+    mobileDiv.innerHTML = `<div class='list'></div>`
+    const list = section.querySelector('.list')
+
+    let numberOfCardsOnPage = 0
+    for (let i = startCounter; i < startCounter + maxIntCardsOnPage; i++) {
+        if (i >= data.length)
+            break
+        list.innerHTML += (
             `<div class="person">
                     <div class="person__top">
-                        <img src="${obj.image}" alt="Portrait of ${obj.name}" loading="lazy"/>
+                        <img src="${data[i].image}" alt="Portrait of ${data[i].name}" loading="lazy"/>
                         <div class="person__top__data">
                             <p class="person__data-title">Name:</p>
-                            <span>${obj.name}</span>
+                            <span>${data[i].name}</span>
                             <p class="person__data-title">Date of birth:</p>
-                            <span>${obj.dateOfBirth === '' ? 'no data' : obj.dateOfBirth}</span>
+                            <span>${data[i].dateOfBirth === '' ? 'no data' : data[i].dateOfBirth}</span>
                             <p class="person__data-title">Wizard:</p>
-                            <span>${obj.wizard ? 'yes' : 'no'}</span>
+                            <span>${data[i].wizard ? 'yes' : 'no'}</span>
                         </div>
-                        ${isInFavorites(obj) ? `<i class="fa-solid fa-heart red-heart" id="heart${personId}"></i>` : `<i class="fa-solid fa-heart" id="heart${personId}"></i>`}
+                        ${isInFavorites(data[i]) ? `<i class="fa-solid fa-heart red-heart" id="heart${i}"></i>` : `<i class="fa-solid fa-heart" id="heart${i}"></i>`}
                     </div>
                     <div class="person__bottom">
                         <p>
                             <span class="person__data-title">Ancestry:</span>
-                            <span>${obj.ancestry === '' ? 'no data' : obj.ancestry}</span>
+                            <span>${data[i].ancestry === '' ? 'no data' : data[i].ancestry}</span>
                         </p>
                         <p>
                             <span class="person__data-title">Is student/staff:</span>
                             <span>
-                                ${obj.hogwartsStudent ? 'student' : ''}
-                                ${obj.hogwartsStaff ? 'staff' : ''}
+                                ${data[i].hogwartsStudent ? 'student' : ''}
+                                ${data[i].hogwartsStaff ? 'staff' : ''}
                             </span>
                         </p>
                     </div>
                 </div>`)
-
-        personId++
+        numberOfCardsOnPage++
     }
-}
 
+    if (data.length > maxIntCardsOnPage)
+        createPagesBtns(mobileDiv, pageNumber, pageBtns)
+
+    const pages = mobileDiv.querySelector('.pages')
+    if (pageNumber === 1) {
+        maxIntOfPageBtns = pageNumber + 2
+        for (let i = pageNumber; i <= maxIntOfPageBtns; i++) {
+            if (i > pageBtns)
+                break
+            pages.querySelector(`#page${i}`).addEventListener('click', () => {
+                pageNumber = i
+                createList(section, data, i * 10 - 10)
+                window.scrollTo(0, 0)
+            })
+        }
+    }
+    else {
+        maxIntOfPageBtns = pageNumber + 1
+        for (let i = pageNumber - 1; i <= maxIntOfPageBtns; i++) {
+            if (i > pageBtns)
+                break
+            pages.querySelector(`#page${i}`).addEventListener('click', () => {
+                pageNumber = i
+                createList(section, data, i * 10 - 10)
+                window.scrollTo(0, 0)
+            })
+        }
+    }
+
+
+    if (pageNumber === 1) {
+        for (let i = pageNumber - 1; i < numberOfCardsOnPage; i++) {
+            if (i > numberOfCardsOnPage)
+                break
+            const btn = section.querySelector(`#heart${i}`)
+            btn.addEventListener('click', () => handleFavorites(btn, data[i]))
+        }
+    }
+    else {
+        for (let i = pageNumber * maxIntCardsOnPage - maxIntCardsOnPage; i < pageNumber * maxIntCardsOnPage; i++) {
+            if (i > numberOfCardsOnPage)
+                break
+            const btn = section.querySelector(`#heart${i}`)
+            btn.addEventListener('click', () => handleFavorites(btn, data[i]))
+        }
+    }
+
+}
 
 const createFavoritesMobile = () => {
     let personId = 0
@@ -261,12 +340,8 @@ const createFavoritesMobile = () => {
 }
 
 const handleMobileListAndFavorites = (section, data) => {
-    let i = 0
+    pageNumber = 1
     createList(section, data)
-    for (const obj of data) {
-        const btn = section.querySelector(`#heart${i++}`)
-        btn.addEventListener('click', () => handleFavorites(btn, obj))
-    }
 }
 
 function handleFavoriteMobile() {
@@ -396,11 +471,7 @@ async function getData(url, section) {
 
     createList(section, data)
 
-    let i = 0
-    for (const item of defaultData) {
-        const btn = document.querySelector(`#heart${i++}`)
-        btn.addEventListener('click', () => handleFavorites(btn, item))
-    }
+
 
 
     fillTable(data, section)

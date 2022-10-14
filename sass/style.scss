@@ -284,6 +284,17 @@ main {
       }
     }
 
+    .pages {
+      margin: .5em 0;
+      text-align: center;
+      border-top: 1px solid black;
+
+      button {
+        margin: .2em;
+        padding: 0.2em;
+        font-size: 1.5rem;
+      }
+    }
 
   }
   .desktop {
@@ -309,6 +320,7 @@ main {
       text-align: center;
       font-family: "Dancing Script", cursive;
       font-size: 1.7rem;
+      z-index: 2;
       thead {
         position: sticky;
       }
@@ -363,6 +375,8 @@ main {
     .desktop {
       margin-top: 3.5em;
       overflow-y:visible;
+      overflow-x: hidden;
+      background-color: transparent;
 
       .container {
         display: flex;
@@ -564,6 +578,7 @@ footer {
     overflow: hidden;
     line-height: 0;
     transform: rotate(180deg);
+    z-index: -1;
   }
 
   .custom-shape-divider-bottom svg {
@@ -684,6 +699,10 @@ footer {
 
 .d-block {
   display: block;
+}
+
+.d-none {
+  display: none;
 }
 
 .red-heart {

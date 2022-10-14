@@ -255,6 +255,16 @@ main .mobile .person__data-title {
   color: var(--second-color);
   font-weight: bold;
 }
+main .mobile .pages {
+  margin: 0.5em 0;
+  text-align: center;
+  border-top: 1px solid black;
+}
+main .mobile .pages button {
+  margin: 0.2em;
+  padding: 0.2em;
+  font-size: 1.5rem;
+}
 main .desktop {
   position: relative;
   height: 59vh;
@@ -279,6 +289,7 @@ main .desktop table {
   text-align: center;
   font-family: "Dancing Script", cursive;
   font-size: 1.7rem;
+  z-index: 2;
 }
 main .desktop table thead {
   position: -webkit-sticky;
@@ -326,6 +337,8 @@ main #favorites .mobile h1 {
 main #favorites .desktop {
   margin-top: 3.5em;
   overflow-y: visible;
+  overflow-x: hidden;
+  background-color: transparent;
 }
 main #favorites .desktop .container {
   display: flex;
@@ -511,6 +524,7 @@ footer .custom-shape-divider-bottom {
   overflow: hidden;
   line-height: 0;
   transform: rotate(180deg);
+  z-index: -1;
 }
 footer .custom-shape-divider-bottom svg {
   position: relative;
@@ -598,6 +612,10 @@ footer .custom-shape-divider-bottom .shape-fill {
 
 .d-block {
   display: block;
+}
+
+.d-none {
+  display: none;
 }
 
 .red-heart {
